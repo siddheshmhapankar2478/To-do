@@ -1,31 +1,41 @@
 import React, {useState} from 'react';
-import { Text, View, Button, TextInput, FlatList } from 'react-native';
+import { View, Button, TextInput, FlatList } from 'react-native';
 import GoalItem from './components/GoalItem';
+import GoalInput from './components/GoalInput';
 
 export default function App() {
-  const[enteredGoal,setEnteredGoal]=useState("");
+  const[modalIsVisible,setModalIsVisible]=useState("");
   const[listOfGoals,setListOfGoals]=useState([]);
-  function goalInputHandler(enteredText){
-    setEnteredGoal(enteredText);
+  function startAddGoalHandler(){
+    setModalIsVisible(true);
   }
-  function addGoalHandler(){
-    console.log(enteredGoal);
-    setListOfGoals((currentListOfGoals)=>[...currentListOfGoals ,{text:enteredGoal,key:Math.random().toString()}]);
+  function endAddGoalHandler(){
+    setModalIsVisible(true);
+  }
+  function deleteGoalHandler(id){
+    setListOfGoals((currentGoals)=>currentGoals.filter((goal)=>goal.id!==id));
+  }
+  function addGoalHandler(enteredGoal){
+    setListOfGoals((currentListOfGoals)=>[...currentListOfGoals ,{text:enteredGoal,id:Math.random().toString()}]);
+    endAddGoalHandler();
+
   }
   return (
     <View className="min-h-full">
-      <View className="w-full flex flex-row justify-center items-center pb-5 border-0 border-b border-b-gray-400 mt-20 ">
-        <TextInput className="h-12 w-3/5 pl-4 mx-2 border border-gray-200 border-1 rounded-lg"
-        placeholder="Type your goal"
-        onChangeText={goalInputHandler}
-        />
-        <Button className="" title='Add Goal' onPress={addGoalHandler}/>
-      </View>
+    <View className="flex justify-center items-center mx-auto w-1/2 mt-20">
+      <Button title='Add New Goal' color={"#5e0acc"} 
+      onPress={startAddGoalHandler}/>
+    </View>
+      {
+        (!modalIsVisible)?(null):(
+          <GoalInput visible={modalIsVisible} onAddGoal={addGoalHandler}/>
+        )
+      }
       <View className="w-full flex flex-col justify-center mx-7 my-10 mb-80 ">
         <FlatList data={listOfGoals} 
         renderItem={(itemData)=>{
               return(
-                <GoalItem itemData={itemData.item.text}/>
+                <GoalItem id={itemData.item.id} itemData={itemData.item.text} onDeleteItem={deleteGoalHandler}/>
               );
         }} 
         keyExtractor={(item,index)=>`${item}-${index}`}
