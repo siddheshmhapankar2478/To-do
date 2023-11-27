@@ -1,17 +1,21 @@
 {
   "expo": {
-    "name": "ToDoProject",
-    "slug": "ToDoProject",
+    "name": "To Do List",
+    "slug": "to-do-list",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
-    "backgroundColor": "#000000",
-    
+    "icon": "./assets/tick_logo.png",
+    "backgroundColor": "#2d3748",
+    "androidNavigationBar": {
+      "visible": true,
+      "barStyle": "dark-content",
+      "backgroundColor": "#2d3748"
+    },
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/splash_image.jpg",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#2d3748"
     },
     "assetBundlePatterns": [
       "**/*"
@@ -21,12 +25,18 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
-      }
+        "foregroundImage": "./assets/tick_logo.png",
+        "backgroundColor": "#2d3748"
+      },
+      "package": "com.siddheshmhapankar.todolist"
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "e1e4c1c4-9eae-438a-bcd1-a3af4c3a14a9"
+      }
     }
   }
 }
